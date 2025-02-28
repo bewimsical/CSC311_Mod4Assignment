@@ -34,6 +34,7 @@ public class Main {
             printWeather(d);
         }
     }
+    //this method prints the weather for a day
     public static void printWeather(Day d){
         String text ="""
                     Here is the weather for: %s
