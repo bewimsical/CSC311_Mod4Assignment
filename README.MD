@@ -11,22 +11,6 @@ The **Weather Data Analyzer** is a Java-based console application that parses we
 - Count the number of rainy days in a specific month.
 - Count the total number of rainy days in 2024.
 
-## Installation and Setup
-### Prerequisites
-1. Ensure you have **Java 17+** installed.
-2. Install **Maven** (Apache Maven 3.6+ recommended).
-
-### Build and Run
-1. Clone the repository or download the source code.
-2. Navigate to the project root directory.
-3. Build the project using Maven:
-   ```sh
-   mvn clean install
-   ```
-4. Run the application with:
-   ```sh
-   mvn exec:java -Dexec.mainClass="Main"
-   ```
 ## Documentation
 View the documentation by clicking [here](https://bewimsical.github.io/CSC311_Mod4Assignment/edu/farmingdale/package-summary.html).
 
