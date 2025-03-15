@@ -150,11 +150,10 @@ public class Main {
     /**
      * This method prints the temperature, humidity and precipitation for a day
      * @param d Day object that contains weather data for a specific day
-     * ### Example Usage:
-     * ```java
+     * {@snippet :
      * Day today = new Day("2024-03-15", 68.5, 55.0, 0.2);
      * printWeather(today);
-     * ```
+     *  }
      */
     public static void printWeather(Day d){
         String percent = "%";
@@ -173,11 +172,10 @@ public class Main {
      * @param data a list storing day objects
      * @param month the month as a string where "01" represents January and "12" represents December
      * @return the average temperature for all the days in the month
-     * ### Example Usage:
-     * ```java
+     * {@snippet :
      * double avgTemp = getMonthAvgTemp(weatherData, "03");
      * System.out.println("Average temperature for March: " + avgTemp);
-     * ```
+     * }
      */
     public static double getMonthAvgTemp(List<Day> data, String month){
         return data.stream()
@@ -190,12 +188,10 @@ public class Main {
      * @param data a list of Day objects
      * @param threshold a double that represents the temperature threshold
      * @return a list of days with a temperature value greater than the threshold value
-     *
-     * ### Example Usage:
-     * ```java
+     *{@snippet :
      * List<Day> hotDays = getDaysAboveThreshold(weatherData, 85.0);
      * hotDays.forEach(day -> System.out.println(day.date() + ": " + day.temperature()));
-     * ```
+     *}
      */
     public static List<Day> getDaysAboveThreshold(List<Day> data, double threshold){
         return  data.stream()
@@ -208,11 +204,10 @@ public class Main {
      * @param data a list of Day objects
      * @param month the month as a string where "01" represents January and "12" represents December
      * @return The number of rainy days in the given month.
-     * ### Example Usage:
-     * ```java
+     *{@snippet :
      * long rainyDays = getRainyDayCount(weatherData, "04");
      * System.out.println("Rainy days in April: " + rainyDays);
-     * ```
+     *}
      */
     public static long getRainyDayCount(List<Day> data, String month){
         return data.stream()
@@ -224,11 +219,10 @@ public class Main {
      * This method returns the number of rainy days for the provided list of Days
      * @param data a list of Day objects
      * @return The total number of days with a precipitation value equal to 1.0.
-     * ### Example Usage:
-     * ```java
+     *{@snippet :
      * long totalRainyDays = getRainyDayCount(weatherData);
      * System.out.println("Total rainy days in 2024: " + totalRainyDays);
-     * ```
+     *}
      */
     public static long getRainyDayCount(List<Day> data){
         return data.stream()
@@ -240,12 +234,11 @@ public class Main {
      * This method categorizes the temperature as Hot, cold or warm
      * @param day a Day object
      * @return  a string indicating the temperature category
-     * ### Example Usage:
-     * ```java
+     *{@snippet :
      * Day sampleDay = new Day("2024-06-20", 90.0, 40.0, 0.0);
      * String category = getTemperatureCategory(sampleDay);
      * System.out.println("Temperature category: " + category);
-     * ```
+     *}
      */
     public static String getTemperatureCategory(Day day){
         double temp = day.temperature();
@@ -267,13 +260,12 @@ public class Main {
      * @param data a list of Day objects
      * @param day a string in the format "mm-dd" representing a day
      * @return a  Day object matching the given date, or null if no data is found.
-     * ### Example Usage:
-     * ```java
+     *{@snippet :
      * Day specificDay = getDay(weatherData, "07-04");
      * if (specificDay != null) {
      *     System.out.println("Weather on July 4th: " + specificDay.temperature() + "°F");
      * }
-     * ```
+     * }
      */
     public static Day getDay(List<Day> data, String day){
         day = "2024-"+day;
@@ -286,15 +278,14 @@ public class Main {
     /**
      * This method valates user input for a day or a month.
      * @param regex a regular expression matching the pattern for a day or a month
-     * @param sc a scanner object for user inp0ut
+     * @param sc a scanner object for user input
      * @param format the date format "mm" for month and "mm-dd" for day
      * @return a validated date in the format "mm" for month and "mm-dd" for day
-     * ### Example Usage:
-     * ```java
+     * {@snippet :
      * Scanner scanner = new Scanner(System.in);
      * String validMonth = validateDate("^(0[1-9]|1[0-2])$", scanner, "mm");
      * System.out.println("Validated month: " + validMonth);
-     * ```
+     *}
      */
     public static String validateDate(String regex, Scanner sc, String format){
         String example = format.equals("mm") ? "where January would be 01":"where January 1st would be 01-01";
