@@ -256,10 +256,10 @@ public class Main {
     }
 
     /**
-     * This method
+     * This method returns a Day object matching the given date
      * @param data a list of Day objects
      * @param day a string in the format "mm-dd" representing a day
-     * @return a  Day object matching the given date, or null if no data is found.
+     * @return a Day object matching the given date, or null if no data is found.
      *{@snippet :
      * Day specificDay = getDay(weatherData, "07-04");
      * if (specificDay != null) {
