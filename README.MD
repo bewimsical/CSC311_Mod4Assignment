@@ -27,6 +27,8 @@ The **Weather Data Analyzer** is a Java-based console application that parses we
    ```sh
    mvn exec:java -Dexec.mainClass="Main"
    ```
+## Documentation
+View the documentation by clicking [here](https://bewimsical.github.io/CSC311_Mod4Assignment/edu/farmingdale/package-summary.html).
 
 ## Usage
 Upon running the program, a menu will be displayed with the following options:
