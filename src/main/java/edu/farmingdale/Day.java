@@ -6,6 +6,8 @@ package edu.farmingdale;
  * @param temperature a double storing the temperature in degrees Fahrenheit
  * @param humidity  a double storing the humidity as a percentage range: 0 - 100
  * @param precipitation  a double storing the chance of precipitation range: 0 - 1
+ *
+ * @author Kathleen Wims
  */
 public record Day(String date, double temperature, double humidity, double precipitation) {
 }

@@ -5,6 +5,10 @@ import java.io.FileReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * This class controls the program
+ * @author Kathleen Wims
+ */
 public class Main {
     /**
      * This method controls the program. It parses the weather data and provides a menu in the console for interacting
@@ -76,6 +80,8 @@ public class Main {
                     if (day != null){
                         printWeather(day);
                     }else System.out.printf("no weather data for 2024-%s", date);
+                    System.out.println("Press enter");
+                    sc.nextLine();
                 }
                 case "2" ->{
                     String format = "mm-dd";
@@ -84,11 +90,15 @@ public class Main {
                     if (day != null){
                         System.out.printf("The temperature was %s on 2024-%s\n",getTemperatureCategory(day), date);
                     }else System.out.printf("no weather data for 2024-%s\n", date);
+                    System.out.println("Press enter");
+                    sc.nextLine();
                 }
                 case "3" ->{
                     String format = "mm";
                     String month = validateDate(monthRegex, sc, format);
-                    System.out.printf("The average temperature for the month %s is %.2f\n", month, getMonthAvgTemp(weather, month));
+                    System.out.printf("The average temperature for %s was %.2f°F\n", months.get(month), getMonthAvgTemp(weather, month));
+                    System.out.println("Press enter");
+                    sc.nextLine();
                 }
                 case "4" -> {
                     System.out.println("Please enter a temperature threshold value");
@@ -103,45 +113,48 @@ public class Main {
                         }
                     }
                     List<Day> days = getDaysAboveThreshold(weather,threshold);
-                    System.out.printf("The following days had a temperature above %s°F:\n", threshold);
+                    System.out.printf("There were %s days with a temperature above %s°F:\n", days.size(),threshold);
                     for(Day d : days){
                         if (d != null) {
                             System.out.printf("%s: %.2f°F\n", d.date(), d.temperature());
                         }
                     }
+                    System.out.println("Press enter");
+                    sc.nextLine();
                 }
                 case "5" -> {
                     String format = "mm";
                     String month = validateDate(monthRegex, sc, format);
-                    System.out.printf("There were %s rainy days in %s\n", getRainyDayCount(weather, month), month);
+                    String output = getRainyDayCount(weather, month) > 1 ? "There were %s rainy days in %s\n" : "There was %s rainy day in %s\n";
+                    System.out.printf(output, getRainyDayCount(weather, month), months.get(month));
+                    System.out.println("Press enter");
+                    sc.nextLine();
                 }
                 case "6" -> {
-                    System.out.printf("There were %s rainy days in 2024\n", getRainyDayCount(weather));
+                    String output = getRainyDayCount(weather) > 1 ? "There were %s rainy days in %s\n" : "There was %s rainy day in %s\n";
+                    System.out.printf(output, getRainyDayCount(weather));
+                    System.out.println("Press enter");
+                    sc.nextLine();
                 }
                 case "0" -> running = false;
-                default -> System.out.println("invalid input");
+                default -> {
+                    System.out.println("invalid input");
+                    System.out.println("Press enter");
+                    sc.nextLine();
+                }
             }
         }
         System.out.println("Thank you for using Weather Data Analyzer");
-
-
-
-        for(Day d: weather){
-            String month = "02";
-            if(d.date().matches("(2024-"+month+"-\\d+)")) {
-                printWeather(d);
-            }
-        }
-        System.out.println(getMonthAvgTemp(weather, "02"));
-        for(Day d: getDaysAboveThreshold(weather, 80)){
-            System.out.printf("%s: %s\n", d.date(), d.temperature());
-        }
-        System.out.printf("There were %s rainy days this year", getRainyDayCount(weather, "04"));
     }
 
     /**
      * This method prints the temperature, humidity and precipitation for a day
      * @param d Day object that contains weather data for a specific day
+     * ### Example Usage:
+     * ```java
+     * Day today = new Day("2024-03-15", 68.5, 55.0, 0.2);
+     * printWeather(today);
+     * ```
      */
     public static void printWeather(Day d){
         String percent = "%";
@@ -160,6 +173,11 @@ public class Main {
      * @param data a list storing day objects
      * @param month the month as a string where "01" represents January and "12" represents December
      * @return the average temperature for all the days in the month
+     * ### Example Usage:
+     * ```java
+     * double avgTemp = getMonthAvgTemp(weatherData, "03");
+     * System.out.println("Average temperature for March: " + avgTemp);
+     * ```
      */
     public static double getMonthAvgTemp(List<Day> data, String month){
         return data.stream()
@@ -170,8 +188,14 @@ public class Main {
     /**
      * This method gets a list Days with temperatures above a given threshold
      * @param data a list of Day objects
-     * @param threshold a double that represents the temperature
+     * @param threshold a double that represents the temperature threshold
      * @return a list of days with a temperature value greater than the threshold value
+     *
+     * ### Example Usage:
+     * ```java
+     * List<Day> hotDays = getDaysAboveThreshold(weatherData, 85.0);
+     * hotDays.forEach(day -> System.out.println(day.date() + ": " + day.temperature()));
+     * ```
      */
     public static List<Day> getDaysAboveThreshold(List<Day> data, double threshold){
         return  data.stream()
@@ -183,7 +207,12 @@ public class Main {
      * This method returns the number of rainy days for a specific month
      * @param data a list of Day objects
      * @param month the month as a string where "01" represents January and "12" represents December
-     * @return a long value storing the number of days with a precipitation value equal to 1.0
+     * @return The number of rainy days in the given month.
+     * ### Example Usage:
+     * ```java
+     * long rainyDays = getRainyDayCount(weatherData, "04");
+     * System.out.println("Rainy days in April: " + rainyDays);
+     * ```
      */
     public static long getRainyDayCount(List<Day> data, String month){
         return data.stream()
@@ -194,7 +223,12 @@ public class Main {
     /**
      * This method returns the number of rainy days for the provided list of Days
      * @param data a list of Day objects
-     * @return a long value storing the number of days with a precipitation value equal to 1.0
+     * @return The total number of days with a precipitation value equal to 1.0.
+     * ### Example Usage:
+     * ```java
+     * long totalRainyDays = getRainyDayCount(weatherData);
+     * System.out.println("Total rainy days in 2024: " + totalRainyDays);
+     * ```
      */
     public static long getRainyDayCount(List<Day> data){
         return data.stream()
@@ -205,8 +239,13 @@ public class Main {
     /**
      * This method categorizes the temperature as Hot, cold or warm
      * @param day a Day object
-     * @return a String value "Hot" if the temperature value is greater than 80, "Cold" if the temperature value is
-     * less than 60 and "Warm" for any other temperature values.
+     * @return  a string indicating the temperature category
+     * ### Example Usage:
+     * ```java
+     * Day sampleDay = new Day("2024-06-20", 90.0, 40.0, 0.0);
+     * String category = getTemperatureCategory(sampleDay);
+     * System.out.println("Temperature category: " + category);
+     * ```
      */
     public static String getTemperatureCategory(Day day){
         double temp = day.temperature();
@@ -222,6 +261,20 @@ public class Main {
             }
         }
     }
+
+    /**
+     * This method
+     * @param data a list of Day objects
+     * @param day a string in the format "mm-dd" representing a day
+     * @return a  Day object matching the given date, or null if no data is found.
+     * ### Example Usage:
+     * ```java
+     * Day specificDay = getDay(weatherData, "07-04");
+     * if (specificDay != null) {
+     *     System.out.println("Weather on July 4th: " + specificDay.temperature() + "°F");
+     * }
+     * ```
+     */
     public static Day getDay(List<Day> data, String day){
         day = "2024-"+day;
         for (int i = 0; i < data.size(); i++) {
@@ -229,6 +282,20 @@ public class Main {
         }
         return null;
     }
+
+    /**
+     * This method valates user input for a day or a month.
+     * @param regex a regular expression matching the pattern for a day or a month
+     * @param sc a scanner object for user inp0ut
+     * @param format the date format "mm" for month and "mm-dd" for day
+     * @return a validated date in the format "mm" for month and "mm-dd" for day
+     * ### Example Usage:
+     * ```java
+     * Scanner scanner = new Scanner(System.in);
+     * String validMonth = validateDate("^(0[1-9]|1[0-2])$", scanner, "mm");
+     * System.out.println("Validated month: " + validMonth);
+     * ```
+     */
     public static String validateDate(String regex, Scanner sc, String format){
         String example = format.equals("mm") ? "where January would be 01":"where January 1st would be 01-01";
         System.out.println("Please enter a date using the format " + format);
